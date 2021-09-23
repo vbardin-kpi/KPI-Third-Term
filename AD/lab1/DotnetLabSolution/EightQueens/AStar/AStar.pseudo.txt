@@ -1,0 +1,39 @@
+﻿
+// board is an input board that will be used as an input state
+func AStar(board) {
+    // A priority queue, where priority is an integer number. Queue has a custom comparer that return nodes from smaller to bigger number
+    openNodes = {start}
+    // A list that contains checked board states
+    closeNodes = {}
+
+    while (board is not valid) {
+        // Get a nearest node, as a priority queue is used we can just use .Dequeue() method and it'll return as a required node
+        node = openNodes.Dequeue()
+
+        if (node contains pos update) {
+            node.board.MoveQueen()
+            closeNodes.Add(node.board.positions)
+        }
+
+        // New nodes that should be check while solving the board
+        subNodes = {}
+        foreach (subNode in GenerateSubNodes()) {
+            boardFingerprint = subNode.board.positions
+
+            if (!closeNodes.Contains(boardFingerprint)) {
+                subNodes.Add(subNode)
+            }
+        }
+
+        foreach (subNode in subNodes) {
+            subNode.Weight = node.weight + Heuristic(subNode)
+            openNodes.Enqueue(subNode, subNode.weight)
+        }
+
+        if (openNodes.count is 0) {
+            return SolutionNotFound
+        }
+    }
+
+    return node
+}
