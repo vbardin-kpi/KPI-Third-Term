@@ -1,0 +1,46 @@
+﻿func Ldfs(limit, node) {
+    if (node.board is valid) {
+        return
+    }
+
+    // Check if depth limit reached
+    if (node.depth >= limit) {
+        return depthReachedFailure
+    }
+
+    // outer variables that keeps some meta-information
+    _totalSteps++;
+    _depth = node.depth;
+
+    // Move queen if possible
+    if (node contains pos update) {
+        node.board.MoveQueen()
+
+        if (node.board is valid) {
+            return
+        }
+    }
+
+    // SubNodes for this node wasn't generated yet, so generate them
+    if (node.subNodes is null) {
+        node.subNodes = GenerateSubNodes()
+    }
+
+    // Select a next node to check
+    if (node.subNodes.count > 0) {
+        subNode = node.subNodes.First()
+        if (subNode is not null) {
+            Ldfs(limit, subNode)
+            return
+        }
+    }
+
+    // Dead end reached. Use a backtrack to check another path
+    RollbackChanges(node)
+    _backtracks++;
+    if (node.parentNode is null) {
+        return solutionNotFound
+    }
+
+    Ldfs(limit, node.parentNode)
+}
