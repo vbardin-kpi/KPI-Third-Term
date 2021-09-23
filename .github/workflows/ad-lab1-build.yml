@@ -2,10 +2,10 @@ name: build
 on:
   push:
     paths:
-      - 'AD/lab1/**'
+      - 'AD/lab1/DotnetLabSolution'
   pull_request:
     paths:
-      - 'AD/lab1/**'
+      - 'AD/lab1/DotnetLabSolution'
 
 jobs:      
   project-build:
