@@ -1,4 +1,4 @@
-# Web-Applications Development LAB-1
+# Web-Applications Development LAB-2
 
 ## TASK
 Task — http://www.vyborkom.org/web-2021/lab2.pdf
