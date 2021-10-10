@@ -138,8 +138,10 @@ function applyAndSaveColor() {
 document.querySelectorAll('.editable').forEach((el) => {
     el.addEventListener('dblclick', (event) => {
         let savedInfoKey = event.target.id + "-original-version"
+        let topBlockId = '#' + event.target.id
 
         let targetElemInnerHtml = event.target.innerHTML
+
         let textarea = document.createElement('textarea')
         textarea.innerText = targetElemInnerHtml
 
@@ -157,8 +159,20 @@ document.querySelectorAll('.editable').forEach((el) => {
         btnSubmit.type = 'submit'
         btnSubmit.value = 'Save'
         btnSubmit.onclick = () => {
-            event.target.innerHTML = textarea.innerHTML
+            event.target.innerHTML = textarea.value
             localStorage.setItem(savedInfoKey, targetElemInnerHtml)
+
+            let rollbackBtn = document.createElement('input')
+            rollbackBtn.type = 'submit'
+            rollbackBtn.value = 'Rollback'
+            rollbackBtn.addEventListener('click', (event) => {
+                let target = event.target
+
+                document.querySelector(topBlockId).innerHTML = localStorage.getItem(savedInfoKey)
+                localStorage.removeItem(savedInfoKey)
+            })
+
+            event.target.appendChild(rollbackBtn)
         }
 
         event.target.appendChild(document.createElement('br'))
