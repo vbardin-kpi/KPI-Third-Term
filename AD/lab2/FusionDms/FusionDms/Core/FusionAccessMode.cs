@@ -1,6 +1,6 @@
 ﻿namespace FusionDms.Core
 {
-    public enum FusionAccessMode
+    internal enum FusionAccessMode
     {
         ReadWrite,
         ReadOnly,
