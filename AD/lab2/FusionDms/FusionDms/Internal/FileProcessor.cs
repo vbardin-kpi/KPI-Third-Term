@@ -21,39 +21,26 @@ namespace FusionDms.Internal
 
         internal void WriteDataPiece<TKey>(DataPiece<TKey> dataPiece) where TKey : IComparable
         {
-            List<Index<TKey>> indexes;
-            List<DataPiece<TKey>> dataSegment;
+            var lines = ReadAllLines();
 
-            using (var fs = GetFileStream())
-            {
-                if (!fs.CanWrite)
-                {
-                    throw new InvalidOperationException("Database connection opened in read-only mode!");
-                }
+            var newDataPieceIndex = _indexProcessor.CreateIndex(dataPiece.Key, lines);
 
-                var lines = ReadAllLines(fs);
+            var indexes = _indexProcessor.GetIndexes<TKey>(lines);
+            indexes.Add(newDataPieceIndex);
+            indexes = indexes.OrderBy(x => x.Key).ToList();
 
-                var newDataPieceIndex = _indexProcessor.CreateIndex(dataPiece.Key, lines);
-
-                indexes = _indexProcessor.GetIndexes<TKey>(lines);
-                indexes.Add(newDataPieceIndex);
-                indexes = indexes.OrderBy(x => x.Key).ToList();
-
-                dataSegment = GetDataSegment<TKey>(lines);
-                dataSegment.Add(dataPiece);
-            }
+            var dataSegment = GetDataSegment<TKey>(lines);
+            dataSegment.Add(dataPiece);
 
             RewriteFile(indexes, dataSegment);
         }
 
         internal DataPiece<TKey> ReadDataPiece<TKey>(TKey key) where TKey : IComparable
         {
-            using var fs = GetFileStream();
-            var lines = ReadAllLines(fs);
+            var lines = ReadAllLines();
 
             var index = _indexProcessor.GetIndexByKey(lines, key);
-
-            return GetDataPieceByLineNumber<TKey>(index.Payload);
+            return GetDataPieceByLineNumber<TKey>(lines, index.Payload);
         }
 
         internal DataPiece<TKey> UpdateDataPiece<TKey>(TKey key, DataPiece<TKey> newValue)
@@ -64,12 +51,7 @@ namespace FusionDms.Internal
                 throw new InvalidOperationException("Record and key aren't consistent!");
             }
 
-            List<string> lines;
-
-            using (var fs = GetFileStream())
-            {
-                lines = ReadAllLines(fs);
-            }
+            var lines = ReadAllLines();
 
             RewriteDataPiece(lines, newValue);
 
@@ -78,28 +60,22 @@ namespace FusionDms.Internal
 
         internal void DeleteDataPiece<TKey>(TKey key) where TKey : IComparable
         {
-            List<Index<TKey>> indexes;
-            List<DataPiece<TKey>> dataSegment;
+            var lines = ReadAllLines();
+            var indexes = _indexProcessor.GetIndexes<TKey>(lines);
 
-            using (var fs = GetFileStream())
-            {
-                var lines = ReadAllLines(fs);
-                indexes = _indexProcessor.GetIndexes<TKey>(lines);
+            var dataSegment = GetDataSegment<TKey>(lines);
 
-                dataSegment = GetDataSegment<TKey>(lines);
-
-                indexes.RemoveAll(x => key.CompareTo(x.Key) == 0);
-                dataSegment.RemoveAll(x => key.CompareTo(x.Key) == 0);
-            }
+            indexes.RemoveAll(x => key.CompareTo(x.Key) == 0);
+            dataSegment.RemoveAll(x => key.CompareTo(x.Key) == 0);
 
             RewriteFile(indexes, dataSegment);
         }
 
-        private List<string> ReadAllLines(FileStream fs)
+        private List<string> ReadAllLines()
         {
             var lines = new List<string>();
 
-            using var reader = new StreamReader(fs);
+            using var reader = new StreamReader(_connectionInfo.FilePath);
             while (!reader.EndOfStream)
             {
                 lines.Add(reader.ReadLine());
@@ -170,14 +146,15 @@ namespace FusionDms.Internal
             return dataSegment;
         }
 
-        private DataPiece<TKey> GetDataPieceByLineNumber<TKey>(int lineNumber) where TKey : IComparable
+        private DataPiece<TKey> GetDataPieceByLineNumber<TKey>(
+            List<string> lines,
+            int lineNumber) where TKey : IComparable
         {
-            using var reader = new StreamReader(GetFileStream());
-
+            using var dataIterator = lines.GetEnumerator();
             var isDataSegment = false;
-            while (!reader.EndOfStream)
+            while (dataIterator.MoveNext())
             {
-                var line = reader.ReadLine();
+                var line = dataIterator.Current;
 
                 if (line is FusionConstants.DataAreaBeginMarker) isDataSegment = true;
                 if (IsMarkLine(line)) continue;
@@ -187,20 +164,19 @@ namespace FusionDms.Internal
                 {
                     if (i == lineNumber) return DataPiece<TKey>.ToDataPiece(line);
 
-                    line = reader.ReadLine();
+                    if (!dataIterator.MoveNext())
+                    {
+                        throw new RecordNotFoundException(
+                            "An error occured. Record at line " + lineNumber + " wasn't found.");
+                    }
+
+                    line = dataIterator.Current;
                 }
             }
 
-            throw new RecordNotFoundException("An error occured. Record at line " + lineNumber + " wasn't found.");
+            throw new RecordNotFoundException(
+                "An error occured. Record at line " + lineNumber + " wasn't found.");
         }
-
-        private FileStream GetFileStream() =>
-            _connectionInfo.AccessMode switch
-            {
-                FusionAccessMode.ReadWrite => File.Open(_connectionInfo.FilePath, FileMode.Open),
-                FusionAccessMode.ReadOnly => File.OpenRead(_connectionInfo.FilePath),
-                _ => throw new ArgumentOutOfRangeException(nameof(_connectionInfo.AccessMode), "Invalid access mode.")
-            };
 
         private static bool IsMarkLine(string str) =>
             str is FusionConstants.DataAreaBeginMarker or
