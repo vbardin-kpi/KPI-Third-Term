@@ -160,7 +160,9 @@ namespace FusionDms.Internal
                 if (IsMarkLine(line)) continue;
                 if (!isDataSegment) continue;
 
-                for (var i = 0; i <= lineNumber; i++)
+                // Iterating should start from 1 not from 0.
+                // Because lines at the database starts from 1
+                for (var i = 1; i <= lineNumber; i++)
                 {
                     if (i == lineNumber) return DataPiece<TKey>.ToDataPiece(line);
 
