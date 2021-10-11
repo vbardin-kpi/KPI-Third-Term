@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using FusionDms.Core;
 using FusionDms.Exceptions;
@@ -48,13 +47,39 @@ namespace FusionDms.Internal
             try
             {
                 var indexes = GetIndexes<TKey>(lines);
-                var pos = indexes.Select(x => x.Key).ToList().BinarySearch(key);
-                return indexes[pos];
+                return BinarySearch(indexes, key);
             }
             catch (ArgumentOutOfRangeException)
             {
                 throw new RecordNotFoundException("Record with key " + key + " wasn't found!");
             }
+        }
+
+        private Index<TKey> BinarySearch<TKey>(
+            IReadOnlyList<Index<TKey>> indexes,
+            TKey value) where TKey : IComparable
+        {
+            var lo = 0;
+            var hi = indexes.Count - 1;
+            while (lo <= hi)
+            {
+                var i = lo + ((hi - lo) >> 1);
+                var order = indexes[i].Key.CompareTo(value);
+
+                switch (order)
+                {
+                    case 0:
+                        return indexes[i];
+                    case < 0:
+                        lo = i + 1;
+                        break;
+                    default:
+                        hi = i - 1;
+                        break;
+                }
+            }
+
+            return indexes[~lo];
         }
 
         private int GetRecordsAmount(List<string> lines)
