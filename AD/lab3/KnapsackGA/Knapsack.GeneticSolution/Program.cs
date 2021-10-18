@@ -17,14 +17,24 @@ namespace Knapsack.GeneticSolution
         private const int MaxItemsWorth = 20;
         private const int MinItemsWeight = 1;
         private const int MaxItemsWeight = 10;
-        private const int GeneticIterations = 1000;
 
         public static void Main()
         {
-            var knapsack = new Backpack(GenerateItems(), KnapsackCapacity);
+            var items = GenerateItems().ToArray();
+
+            ExecuteWithIterations(iterations: 1, items);
+            ExecuteWithIterations(iterations: 10, items);
+            ExecuteWithIterations(iterations: 100, items);
+            ExecuteWithIterations(iterations: 1000, items);
+            ExecuteWithIterations(iterations: 10000, items);
+        }
+
+        private static void ExecuteWithIterations(int iterations, IEnumerable<Item> items)
+        {
+            var knapsack = new Backpack(items, KnapsackCapacity);
 
             List<Population> bestPopulations = new();
-            for (var iterationNumber = 1; iterationNumber <= GeneticIterations; iterationNumber++)
+            for (var iterationNumber = 1; iterationNumber <= iterations; iterationNumber++)
             {
                 var geneticProcessor = new GeneticAlgorithmProcessor(knapsack, 100, 5, 71)
                 {
@@ -35,14 +45,6 @@ namespace Knapsack.GeneticSolution
                 };
 
                 bestPopulations.Add(geneticProcessor.CurrentPopulation);
-            }
-
-            foreach (var population in bestPopulations)
-            {
-                Console.WriteLine("Iteration: " + population.Iteration);
-                Console.WriteLine("Worth: " + population.Worth);
-                Console.WriteLine("Weigh: " + population.TotalWeight);
-                Console.WriteLine("Worth Percentage: {0:####.####}%\n", population.WorthPercentage);
             }
 
             var bestPopulation = bestPopulations.OrderByDescending(p => p.WorthPercentage).First();
@@ -56,7 +58,11 @@ namespace Knapsack.GeneticSolution
 
             Console.WriteLine("\nAverage Worth Percentage: {0:####.####}%",
                 bestPopulations.Average(p => p.WorthPercentage));
+
+            Console.WriteLine();
+            Console.WriteLine();
         }
+
 
         private static IEnumerable<Item> GenerateItems() =>
             Enumerable.Range(0, ItemsAmount)
