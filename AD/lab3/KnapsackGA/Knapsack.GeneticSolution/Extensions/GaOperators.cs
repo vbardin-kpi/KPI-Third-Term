@@ -63,8 +63,8 @@ namespace Knapsack.GeneticSolution.Extensions
             int iterationNumber,
             int dropSelected)
         {
-            // Найти и добавить предмет с минимальным весом, максимальной ценностью и стоимостью не меньше веса
-            // который мы до этого не добавляли (Обновление каждые 70 итераций)
+            // Find and replace an item with a minimum weight, max value and value >= weight that still wasn't added
+            // Each dropSelected - 1 iterations this items will be changed
             if (!backpack.Items.Select(i => i.Selected).Contains(false))
                 return population;
 
