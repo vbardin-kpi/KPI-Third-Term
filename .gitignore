@@ -39,4 +39,3 @@ msbuild.wrn
 #Rider
 **/.idea
 *.docx
-*Development.json
