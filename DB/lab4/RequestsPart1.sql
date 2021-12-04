@@ -71,6 +71,13 @@ FROM "Developers" AS DEVS
 GROUP BY "Dev Name"
 HAVING COUNT(PD."DeveloperId") >= 2;
 
+-- 1.h Get min terms pages amount that is more than 100
+SELECT MIN(terms."Pages")
+FROM "Terms" AS terms
+         JOIN "ProductTerms" AS prodTerms ON terms."Id" = prodTerms."TermsId"
+         FULL JOIN "Products" AS prods ON prodTerms."ProductId" = prods."Id"
+HAVING MIN(terms."Pages") > 100;
+
 -- 1.i Select all products terms by developer's id
 SELECT concat(devs."FirstName", ' ', devs."LastName") AS "DevName"
      , prods."Id"                                     AS "ProductId"
