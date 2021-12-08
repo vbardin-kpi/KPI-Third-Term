@@ -1,0 +1,17 @@
+INSERT INTO "Service_ServiceTypes" ("ServiceId", "ServiceTypeId")
+VALUES ('f852c209-0362-42bb-84b1-267db651fe52', 'f852c209-0362-42bb-84b1-267db651fe52'),
+       ('cfeae223-dd7c-4c83-abce-ea873dd6d1e1', 'cfeae223-dd7c-4c83-abce-ea873dd6d1e1'),
+       ('f3e1da39-1b1a-4208-ae05-0939cc551931', 'f3e1da39-1b1a-4208-ae05-0939cc551931'),
+       ('b810ee41-c087-41db-854c-ecf47fb9a660', 'b810ee41-c087-41db-854c-ecf47fb9a660'),
+       ('d1c60040-e837-4504-bfb0-98b1375b8c0d', 'd1c60040-e837-4504-bfb0-98b1375b8c0d'),
+       ('26c0ab83-dae0-4437-9a87-6d97976c4025', '26c0ab83-dae0-4437-9a87-6d97976c4025'),
+       ('9715a7ac-4c17-4a83-8b64-847cfa9182cb', '9715a7ac-4c17-4a83-8b64-847cfa9182cb'),
+       ('2670ec00-83e2-4ba2-afde-863c2be9ab34', '2670ec00-83e2-4ba2-afde-863c2be9ab34'),
+       ('5e02eab4-dca0-4ab6-8ae3-37c94972537d', '5e02eab4-dca0-4ab6-8ae3-37c94972537d'),
+       ('8879d3f3-4b91-4da3-8d9f-bf2cf52d4153', '8879d3f3-4b91-4da3-8d9f-bf2cf52d4153'),
+       ('0f600155-a8d9-46c7-a276-72bf8b5e4e5c', '0f600155-a8d9-46c7-a276-72bf8b5e4e5c'),
+       ('574eafbd-9ad8-4dd4-9feb-63e4c1f2df8f', '574eafbd-9ad8-4dd4-9feb-63e4c1f2df8f'),
+       ('ad02f886-2682-4007-b217-5c6f96db9fd7', 'ad02f886-2682-4007-b217-5c6f96db9fd7'),
+       ('7f2ad7f4-178a-44d0-ae5a-1c08aa705522', '7f2ad7f4-178a-44d0-ae5a-1c08aa705522'),
+       ('17ce9c46-ac80-44a2-999e-bfb17b86a99c', '17ce9c46-ac80-44a2-999e-bfb17b86a99c'),
+       ('569f8a3c-4a8b-4183-bb7f-1ff7575ae5ac', '569f8a3c-4a8b-4183-bb7f-1ff7575ae5ac');
