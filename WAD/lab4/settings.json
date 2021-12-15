@@ -1,0 +1,8 @@
+{
+  "texture": "texture.svg",
+  "circle": {
+    "x": 10,
+    "y": 10
+  },
+  "redrawInterval": 20
+}

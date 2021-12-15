@@ -40,3 +40,4 @@ msbuild.wrn
 **/.idea
 *.docx
 **/*.Development.json
+**/**/node_modules
