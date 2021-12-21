@@ -1,0 +1,308 @@
+﻿<Window x:Class="Yahtzee.UI.Views.MainForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Yahtzee" Icon="../Resources/Die_5.jpeg" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="75*" />
+        </Grid.RowDefinitions>
+
+        <Border x:Name="FirstRowBorder" Grid.Row="0" BorderThickness="0.3" BorderBrush="Black" Margin="5px">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border x:Name="DieImg0Area" Grid.Column="0" BorderThickness="0.5" BorderBrush="Chartreuse" Margin="5px" CornerRadius="0.3">
+                    <Image x:Name="DieImg0" x:Uid="d_0" MouseDown="DieImg_OnMouseDown"></Image>
+                </Border>
+                <Border x:Name="DieImg1Area" Grid.Column="1" BorderThickness="0.5" BorderBrush="Chartreuse" Margin="5px" CornerRadius="0.3">
+                    <Image x:Name="DieImg1" x:Uid="d_1" MouseDown="DieImg_OnMouseDown"></Image>
+                </Border>
+                <Border x:Name="DieImg2Area" Grid.Column="2" BorderThickness="0.5" BorderBrush="Chartreuse" Margin="5px" CornerRadius="0.3">
+                    <Image x:Name="DieImg2" x:Uid="d_2" MouseDown="DieImg_OnMouseDown"></Image>
+                </Border>
+                <Border x:Name="DieImg3Area" Grid.Column="3" BorderThickness="0.5" BorderBrush="Chartreuse" Margin="5px" CornerRadius="0.3">
+                    <Image x:Name="DieImg3" x:Uid="d_3" MouseDown="DieImg_OnMouseDown"></Image>
+                </Border>
+                <Border x:Name="DieImg4Area" Grid.Column="4" BorderThickness="0.5" BorderBrush="Chartreuse" Margin="5px" CornerRadius="0.3">
+                    <Image x:Name="DieImg4" x:Uid="d_4" MouseDown="DieImg_OnMouseDown"></Image>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" BorderThickness="0.3" BorderBrush="Black" Margin="5px">
+            <Button x:Name="RollBtn" FontSize="16px" FontWeight="Bold" MouseDown="RollBtn_OnMouseDown">Roll!</Button>
+        </Border>
+
+        <Border Grid.Row="2" BorderThickness="0.3" BorderBrush="Black" Margin="5px">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" BorderThickness="0.3" BorderBrush="Black" Margin="5px">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Row="0" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Button x:Name="OnesBtn" Width="100px" MouseDown="StepBtn_OnMouseDown">Ones</Button>
+                                <Label x:Name="OnesLbl" Width="100px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="1" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Button x:Name="TwosBtn" Width="100px" MouseDown="StepBtn_OnMouseDown">Twos</Button>
+                                <Label x:Name="TwosLbl" Width="100px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="2" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Button x:Name="ThreesBtn" Width="100px" MouseDown="StepBtn_OnMouseDown">Threes</Button>
+                                <Label x:Name="ThreesLbl" Width="100px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="3" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Button x:Name="FoursBtn" Width="100px" MouseDown="StepBtn_OnMouseDown">Fours</Button>
+                                <Label x:Name="FoursLbl" Width="100px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="4" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Button x:Name="FivesBtn" Width="100px" MouseDown="StepBtn_OnMouseDown">Fives</Button>
+                                <Label x:Name="FivesLbl" Width="100px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="5" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Button x:Name="SixesBtn" Width="100px" MouseDown="StepBtn_OnMouseDown">Sixes</Button>
+                                <Label x:Name="SixesLbl" Width="100px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="6" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px">First Section Total</Label>
+                                <Label x:Name="FirstSectionTotalLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="7" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px">Section Bonus</Label>
+                                <Label x:Name="FirstSectionBonusLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+
+
+                        <Grid Row="0" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Button x:Name="ThreeOfAKindBtn" Width="120px" MouseDown="StepBtn_OnMouseDown">Three of a kind(total)</Button>
+                                <Label x:Name="ThreeOfAKindLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="1" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Button x:Name="FourOfAKindBtn" Width="120px" MouseDown="StepBtn_OnMouseDown">Four of a kind(total)</Button>
+                                <Label x:Name="FourOfAKindLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="2" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Button x:Name="FullHouseBtn" Width="120px" MouseDown="StepBtn_OnMouseDown">Full house(25 pts)</Button>
+                                <Label x:Name="FullHouseLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="3" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Button x:Name="SmStraightBtn" Width="120px" MouseDown="StepBtn_OnMouseDown">Sm. Straight(30 pts)</Button>
+                                <Label x:Name="SmStraightLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="4" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Button x:Name="LgStraightBtn" Width="120px" MouseDown="StepBtn_OnMouseDown">Lg Straight(40 pts)</Button>
+                                <Label x:Name="LgStraightLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="5" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Button x:Name="YahtzeeBtn" Width="120px" MouseDown="StepBtn_OnMouseDown">Yahtzee!(50 pts)</Button>
+                                <Label x:Name="YahtzeeLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="6" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Button x:Name="ChanceBtn" Width="120px" MouseDown="StepBtn_OnMouseDown">Chance (total of all)</Button>
+                                <Label x:Name="ChanceLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="7" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px" MouseDown="StepBtn_OnMouseDown">Second section total</Label>
+                                <Label x:Name="SecondSectionTotalLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="8" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px" MouseDown="StepBtn_OnMouseDown">Yahtzee bonus!!</Label>
+                                <Label x:Name="YahtzeeBonusLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" BorderThickness="0.3" BorderBrush="Black" Margin="5px">
+                                        <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Row="0" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="100px">Ones</Label>
+                                <Label x:Name="PcOnesLbl" Width="100px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="1" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="100px">Twos</Label>
+                                <Label x:Name="PcTwosLbl" Width="100px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="2" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="100px">Threes</Label>
+                                <Label x:Name="PcThreesLbl" Width="100px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="3" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="100px">Fours</Label>
+                                <Label x:Name="PcFoursLbl" Width="100px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="4" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="100px">Fives</Label>
+                                <Label x:Name="PcFivesLbl" Width="100px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="5" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="100px">Sixes</Label>
+                                <Label x:Name="PcSixesLbl" Width="100px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="6" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px">First Section Total</Label>
+                                <Label x:Name="PcFirstSectionTotalLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="7" Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px">Section Bonus</Label>
+                                <Label x:Name="PcFirstSectionBonusLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+
+
+                        <Grid Row="0" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px">Three of a kind(total)</Label>
+                                <Label x:Name="PcThreeOfAKindLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="1" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px">Four of a kind(total)</Label>
+                                <Label x:Name="PcFourOfAKindLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="2" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px">Full house(25 pts)</Label>
+                                <Label x:Name="PcFullHouseLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="3" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px">Sm. Straight(30 pts)</Label>
+                                <Label x:Name="PcSmStraightLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="4" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px">Lg Straight(40 pts)</Label>
+                                <Label x:Name="PcLgStraightLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="5" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px">Yahtzee!(50 pts)</Label>
+                                <Label x:Name="PcYahtzeeLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="6" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px">Chance (total of all)</Label>
+                                <Label x:Name="PcChanceLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="7" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px">Second section total</Label>
+                                <Label x:Name="PcSecondSectionTotalLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Row="8" Column="1">
+                            <StackPanel Orientation="Horizontal" Margin="3px">
+                                <Label Width="120px">Yahtzee bonus!!</Label>
+                                <Label x:Name="PcYahtzeeBonusLbl" Width="80px"></Label>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
