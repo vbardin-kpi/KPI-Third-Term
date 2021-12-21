@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Resources" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Resources\Die_1.jpeg" />
+      <Resource Include="Resources\Die_1.jpeg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Die_2.jpeg" />
+      <Resource Include="Resources\Die_2.jpeg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Die_3.jpeg" />
+      <Resource Include="Resources\Die_3.jpeg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Die_4.jpeg" />
+      <Resource Include="Resources\Die_4.jpeg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Die_5.jpeg" />
+      <Resource Include="Resources\Die_5.jpeg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Die_6.jpeg" />
+      <Resource Include="Resources\Die_6.jpeg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Yahtzee.Logic\Yahtzee.Logic.csproj" />
+    </ItemGroup>
+
+</Project>
